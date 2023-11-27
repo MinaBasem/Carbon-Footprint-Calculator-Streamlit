@@ -21,11 +21,20 @@ def waste_footprint(df):
     e_waste = df.iloc[4][1] * 7
     plastic = df.iloc[5][1] * 6
     total = paper + glass + metal + organic + e_waste + plastic
-    return total
+    return round(total, 2)
+
+def fuel_footprint(df):
+    gasoline = df.iloc[0][1] * 2.3
+    diesel = df.iloc[1][1] * 2.7
+    natural_gas = df.iloc[2][1] * 2.2
+    lpg = df.iloc[3][1] * 1.75
+    electric = df.iloc[4][1] * 0.4
+    total = gasoline + diesel + natural_gas + lpg + electric
+    return round(total, 2)
 
 
-st.title("Carbon Footprint Calculator")
-st.divider()
+st.header("Carbon Footprint Calculator", divider='green')
+st.markdown("##### Please fill in the values for the inputs below to calculate your footprint")
 
 st.header("Electrical Footprint :zap:")
 
@@ -35,7 +44,7 @@ st.image(url, use_column_width="always")
 electricity_consumption_value = st.slider("Electricity consumption (kWh): ", max_value=1200, min_value=200, step=50)
 household_size = st.slider("Size of household: ", min_value=1, max_value=15)
 carbon_footprint = electricity_consumption(electricity_consumption_value)
-st.text("Your footprint: " + str(round(carbon_footprint/household_size, 2)) + " kgCO2e")
+st.markdown("#### Your electrical footprint: " + ":red[" + str(round(carbon_footprint/household_size, 2)) + "] kgCO2e")
 st.divider()
 
 st.header("Waste Footprint :recycle:")
@@ -55,11 +64,23 @@ df = pd.DataFrame(
    ]
 )
 edited_df = st.data_editor(df, width=1000, hide_index=True, disabled=["Material"])
-st.text("Your waste footprint: " + str(waste_footprint(edited_df)) + " kgCO2e")
+st.markdown("#### Your waste footprint: " + ":red[" + str(waste_footprint(edited_df)) + "] kgCO2e")
 
-#st.divider()
+st.divider()
 
-total = (str(waste_footprint(edited_df)) + str(round(carbon_footprint/household_size, 2)))
+df2 = pd.DataFrame(
+    [
+       {"Fuel": "Gasoline", "Volume (Litre)": 0},
+       {"Fuel": "Diesel", "Volume (Litre)": 0},
+       {"Fuel": "Natural Gas", "Volume (Litre)": 0},
+       {"Fuel": "Liquefied Petroleum Gas", "Volume (Litre)": 0},
+       {"Fuel": "Electric", "Volume (Litre)": 0}
+   ]
+)
+edited_df2 = st.data_editor(df2, width=1000, hide_index=True, disabled=["Material"])
+st.markdown("#### Your waste footprint: " + ":red[" + str(fuel_footprint(edited_df2)) + "] kgCO2e")
+
+total = str((waste_footprint(edited_df)) + (round(carbon_footprint/household_size, 2)) + (fuel_footprint(edited_df2)))
 
 st.header("", divider='green')
-st.header("_Your total footprint is_ " + ":green[" + total + "]", divider='green')
+st.header("_Your total footprint is_ " + ":green[" + total + "] kgCO2e", divider='green')
