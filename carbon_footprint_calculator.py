@@ -68,6 +68,8 @@ st.markdown("#### Your waste footprint: " + ":red[" + str(waste_footprint(edited
 
 st.divider()
 
+st.header("Fuel Footprint :fuelpump:")
+
 df2 = pd.DataFrame(
     [
        {"Fuel": "Gasoline", "Volume (Litre)": 0},
@@ -78,7 +80,7 @@ df2 = pd.DataFrame(
    ]
 )
 edited_df2 = st.data_editor(df2, width=1000, hide_index=True, disabled=["Material"])
-st.markdown("#### Your waste footprint: " + ":red[" + str(fuel_footprint(edited_df2)) + "] kgCO2e")
+st.markdown("#### Your fuel footprint: " + ":red[" + str(fuel_footprint(edited_df2)) + "] kgCO2e")
 
 total = str((waste_footprint(edited_df)) + (round(carbon_footprint/household_size, 2)) + (fuel_footprint(edited_df2)))
 
