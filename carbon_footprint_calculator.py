@@ -70,6 +70,9 @@ st.header("", divider='green')
 
 st.header("Fuel Footprint :fuelpump:")
 
+url = "https://cdn.thezebra.com/zfront/media/production/images/8xzyovqA.width-800.jpg"
+st.image(url, use_column_width="always")
+
 df2 = pd.DataFrame(
     [
        {"Fuel": "Gasoline", "Volume (Litre)": 0},
