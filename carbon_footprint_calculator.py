@@ -45,7 +45,7 @@ electricity_consumption_value = st.slider("Electricity consumption (kWh): ", max
 household_size = st.slider("Size of household: ", min_value=1, max_value=15)
 carbon_footprint = electricity_consumption(electricity_consumption_value)
 st.markdown("#### Your electrical footprint: " + ":red[" + str(round(carbon_footprint/household_size, 2)) + "] kgCO2e")
-st.divider()
+st.header("", divider='green')
 
 st.header("Waste Footprint :recycle:")
 
@@ -66,7 +66,7 @@ df = pd.DataFrame(
 edited_df = st.data_editor(df, width=1000, hide_index=True, disabled=["Material"])
 st.markdown("#### Your waste footprint: " + ":red[" + str(waste_footprint(edited_df)) + "] kgCO2e")
 
-st.divider()
+st.header("", divider='green')
 
 st.header("Fuel Footprint :fuelpump:")
 
