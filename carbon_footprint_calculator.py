@@ -85,7 +85,7 @@ df2 = pd.DataFrame(
 edited_df2 = st.data_editor(df2, width=1000, hide_index=True, disabled=["Material"])
 st.markdown("#### Your fuel footprint: " + ":red[" + str(fuel_footprint(edited_df2)) + "] kgCO2e")
 
-total = str(waste_footprint(edited_df)) + (round(carbon_footprint/household_size, 2)) + (fuel_footprint(edited_df2)))
+total = str(waste_footprint(edited_df)) + (round(carbon_footprint/household_size, 2)) + (fuel_footprint(edited_df2))
 
 st.header("", divider='green')
 st.header("_Your total footprint is_ " + ":green[" + total + "] kgCO2e", divider='green')
